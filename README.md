@@ -1,35 +1,36 @@
-# Rádio CAHK v5 — áudio diário em horário exato
+# DAEX Login
 
-Frontend estático para Cloudflare Workers/Static Assets.
+Módulo inicial para publicar em `cahk.app/daex/`.
 
-## Principais recursos
+## Acesso inicial
 
-- pesquisa de músicas e vídeos no YouTube dentro do site;
-- pedidos por link;
-- gravação de recados pelo microfone com moderação;
-- locuções automáticas;
-- áudios da galera em rodízio;
-- áudio diário em horário exato.
+- Usuário visível: `caixadaex`
+- Senha inicial: `12345678`
+- Identidade técnica no Supabase Auth: `caixadaex@cahk.app`
 
-## Áudio diário
+A senha NÃO está no JavaScript. O frontend apenas converte o nome de usuário
+`caixadaex` para o e-mail técnico usado pelo Supabase Auth.
 
-No painel administrativo, escolha um arquivo e apenas o horário, por exemplo `16:20`.
-O mesmo áudio ficará ativo todos os dias nesse horário.
+## Única etapa manual no Supabase
 
-Quando chegar o horário, o player pausa o conteúdo atual, toca o áudio diário e depois retoma a reprodução anterior. O backend calcula automaticamente a próxima execução para o dia seguinte usando o fuso `America/Sao_Paulo`.
+No projeto `caixa-cahk`:
 
-O painel permite pausar, reativar e alterar o horário de cada áudio diário.
+1. Authentication → Users.
+2. Add user.
+3. Email: `caixadaex@cahk.app`
+4. Password: `12345678`
+5. Marcar Auto Confirm User.
+6. Criar usuário.
 
-Para o horário exato funcionar, mantenha `player.html` aberto, o computador ligado e sem suspensão, e a internet disponível.
+Depois envie a pasta `daex/` para o repositório que publica `cahk.app`.
 
-## Arquivos do site
+## Sessão separada
 
-- `public/index.html`: pedidos + gravador de recados;
-- `public/player.html`: player central;
-- `public/admin.html`: programação, locuções, moderação e áudios diários;
-- `public/styles.css`: visual;
-- `public/config.js`: configuração do Supabase.
+O cliente usa `storageKey: "daex-auth"`, de forma que o módulo DAEX mantém
+uma sessão própria no navegador.
 
-## Publicação
+## Próxima etapa
 
-Substitua os arquivos da pasta `public` do repositório pelo conteúdo desta versão e faça commit. Se o repositório estiver conectado ao Cloudflare Workers, o deploy será iniciado automaticamente.
+Substituir `dashboard.html` pelo sistema completo:
+Eventos, Entidades, Aportes, Despesas, Produtos, Estoque, PDV, Vales,
+Caixa e Relatórios.
